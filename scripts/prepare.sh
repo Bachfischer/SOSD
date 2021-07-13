@@ -17,7 +17,7 @@ function generate_lookups() {
 
 function generate_inserts() {
     echo "Generating inserts for $1"
-    [ -f ../data/$1_inserts_10M ] || ./generate ../data/$1 10000000 1
+    #[ -f ../data/$1_inserts_10M ] || ./generate ../data/$1 10000000 1
     [ -f ../data/$1_inserts_1M ] || ./generate ../data/$1 1000000 1
  } &> /dev/null
 

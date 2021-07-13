@@ -46,9 +46,8 @@ class Alex : public Competitor {
     return (SearchBound){start, stop};
   }
 
-  template<typename KT>
-  uint64_t Insert(const std::vector<KeyValue<KT>> &data) {
-
+  template <typename KT>
+  uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
     uint64_t timing_sum = 0;
     for (auto kv : data) {
       auto timing = util::timing([&] { map_.insert(kv.key, kv.value); });
@@ -68,6 +67,8 @@ class Alex : public Competitor {
 
  private:
   uint64_t data_size_ = 0;
-  //alex::Alex<KeyType, uint64_t> map_;
-  alex::Alex<KeyType, uint64_t, alex::AlexCompare, std::allocator<std::pair<KeyType,uint64_t>>, false> map_;
+  // alex::Alex<KeyType, uint64_t> map_;
+  alex::Alex<KeyType, uint64_t, alex::AlexCompare,
+             std::allocator<std::pair<KeyType, uint64_t>>, false>
+      map_;
 };

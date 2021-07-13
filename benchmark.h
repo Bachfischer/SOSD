@@ -37,12 +37,13 @@ template <typename KeyType = uint64_t,
 class Benchmark {
  public:
   Benchmark(const std::string& data_filename,
-            const std::string& lookups_filename, const size_t num_repeats,
-            const bool perf, const bool build, const bool fence,
+            const std::string& lookups_filename, const std::string& inserts_filename,
+            const size_t num_repeats, const bool perf, const bool build, const bool fence,
             const bool cold_cache, const bool track_errors, const bool csv,
             const size_t num_threads, const SearchClass<KeyType> searcher)
       : data_filename_(data_filename),
         lookups_filename_(lookups_filename),
+        inserts_filename_(inserts_filename),
         num_repeats_(num_repeats),
         first_run_(true),
         perf_(perf),
@@ -86,6 +87,17 @@ class Benchmark {
     // Create the data for the index (key -> position).
     for (uint64_t pos = 0; pos < data_.size(); pos++) {
       index_data_.push_back((KeyValue<KeyType>){data_[pos].key, pos});
+    }
+    if (inserts_filename_ != "") {
+      perform_insertion = true;
+
+      // Load insert data
+      std::vector<KeyType> insert_keys = util::load_data<KeyType>(inserts_filename_);
+
+      uint64_t bulk_load_size = data_.size();
+      for (uint64_t pos = 0; pos < insert_keys.size(); pos++) {
+        index_insert_data_.push_back((KeyValue<KeyType>) {insert_keys[pos], bulk_load_size + pos});
+      }
     }
 
     if (cold_cache) {
@@ -143,6 +155,10 @@ class Benchmark {
       }
       DoEqualityLookups<Index, false, false, false>(index);
       PrintResult(index);
+    }
+
+    if(perform_insertion && index.insertion_possible()) {
+      individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
     }
 
     first_run_ = false;
@@ -340,6 +356,12 @@ class Benchmark {
       all_times << "," << ns_per_lookup;
     }
 
+    if (perform_insertion && index.insertion_possible()) {
+      const double ns_per_insert = static_cast<double>(individual_ns_sum_inserts)
+                                   / index_insert_data_.size();
+      all_times << "," <<  ns_per_insert;
+    }
+
     // don't print a line if (the first) run failed
     if (runs_[0] != 0) {
       std::cout << "RESULT: " << index.name() << "," << index.variant()
@@ -415,11 +437,16 @@ class Benchmark {
 
   uint64_t random_sum_ = 0;
   uint64_t individual_ns_sum_ = 0;
+  uint64_t individual_ns_sum_inserts = 0;
   const std::string data_filename_;
   const std::string lookups_filename_;
+  const std::string inserts_filename_;
+  bool perform_insertion = false;
   std::string dataset_name_;
   std::vector<Row<KeyType>> data_;
+  std::vector<Row<KeyType>> insert_data_;
   std::vector<KeyValue<KeyType>> index_data_;
+  std::vector<KeyValue<KeyType>> index_insert_data_;
   bool unique_keys_;
   std::vector<EqualityLookup<KeyType>> lookups_;
   uint64_t build_ns_;

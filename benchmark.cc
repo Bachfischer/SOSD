@@ -31,17 +31,17 @@ using namespace std;
   if ((!only_mode) || only == tag) { \
     code;                            \
   }
-#define add_search_type(name, func, type, search_class)                   \
-  {                                                                       \
-    if (search_type == (name)) {                                          \
-      auto search = search_class<type>();                                 \
-      sosd::Benchmark<type, search_class> benchmark(                      \
-          filename, lookups, num_repeats, perf, build, fence, cold_cache, \
-          track_errors, csv, num_threads, search);                        \
-      func(benchmark, pareto, only_mode, only, filename);                 \
-      found_search_type = true;                                           \
-      break;                                                              \
-    }                                                                     \
+#define add_search_type(name, func, type, search_class)                \
+  {                                                                    \
+    if (search_type == (name)) {                                       \
+      auto search = search_class<type>();                              \
+      sosd::Benchmark<type, search_class> benchmark(                   \
+          filename, lookups, inserts, num_repeats, perf, build, fence, \
+          cold_cache, track_errors, csv, num_threads, search);         \
+      func(benchmark, pareto, only_mode, only, filename);              \
+      found_search_type = true;                                        \
+      break;                                                           \
+    }                                                                  \
   }
 
 template <class Benchmark>
@@ -106,6 +106,7 @@ int main(int argc, char* argv[]) {
   options.add_options()("data", "Data file with keys",
                         cxxopts::value<std::string>())(
       "lookups", "Lookup key (query) file", cxxopts::value<std::string>())(
+      "inserts", "Inserts key file", cxxopts::value<std::string>()->default_value(""))(
       "help", "Displays help")("r,repeats", "Number of repeats",
                                cxxopts::value<int>()->default_value("1"))(
       "t,threads", "Number of lookup threads",
@@ -151,6 +152,7 @@ int main(int argc, char* argv[]) {
   const bool pareto = result.count("pareto");
   const std::string filename = result["data"].as<std::string>();
   const std::string lookups = result["lookups"].as<std::string>();
+  const std::string inserts = result["inserts"].as<std::string>();
   const std::string search_type = result["search"].as<std::string>();
   const bool only_mode = result.count("only") || std::getenv("SOSD_ONLY");
   std::string only;

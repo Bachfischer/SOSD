@@ -50,7 +50,7 @@ echo "Generating queries..."
 #generate_lookups fb_200M_uint64
 
 
-# # Generating Inserts
+echo "Generating inserts..."
 generate_inserts osm_cellids_200M_uint64
 generate_inserts wiki_ts_200M_uint64
 generate_inserts books_200M_uint32

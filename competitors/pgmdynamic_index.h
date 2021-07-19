@@ -40,13 +40,13 @@ public:
                        extract_key);
 
         uint64_t build_time =
-                util::timing([&] { pgm_ = decltype(pgm_)(keys.begin(), keys.end()); });
+                util::timing([&] { dpgm_ = decltype(dpgm_)(keys.begin(), keys.end()); });
 
         return build_time;
     }
 
     SearchBound EqualityLookup(const KeyType lookup_key) const {
-        auto approx_range = pgm_.find_approximate_position(lookup_key);
+        auto approx_range = dpgm_.find_approximate_position(lookup_key);
         auto lo = approx_range.lo;
         auto hi = approx_range.hi;
 

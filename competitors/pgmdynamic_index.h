@@ -34,7 +34,7 @@ public:
         */
 
         // don't count the data copy time against the PGM build time
-        std::vector<KeyType> keys;
+        std::vector<std::pair<KeyType, ValueType>> keys;
         keys.reserve(data.size());
         std::transform(data.begin(), data.end(), std::back_inserter(keys),
                        extract_key);
@@ -46,11 +46,9 @@ public:
     }
 
     SearchBound EqualityLookup(const KeyType lookup_key) const {
-        auto approx_range = dpgm_.find_approximate_position(lookup_key);
-        auto lo = approx_range.lo;
-        auto hi = approx_range.hi;
-
-        return (SearchBound){lo, hi + 1};
+        auto pos = dpgm_.find(lookup_key);
+        auto lo = pos->value(), hi = pos->value();
+        return (SearchBound){ lo, hi };
     }
 
     template<typename KT>

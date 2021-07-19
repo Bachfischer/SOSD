@@ -15,6 +15,11 @@ function generate_lookups() {
     [ -f ../data/$1_equality_lookups_1M ] || ./generate ../data/$1 1000000
 }
 
+function generate_lookups_test() {
+    echo "Generating lookups for $1"
+    [ -f ../data/$1_equality_lookups_500 ] || ./generate ../data/$1 500
+}
+
 function generate_inserts() {
     echo "Generating inserts for $1"
     #[ -f ../data/$1_inserts_10M ] || ./generate ../data/$1 10000000 1
@@ -48,6 +53,7 @@ echo "Generating queries..."
 #generate_lookups books_800M_uint64
 
 #generate_lookups fb_200M_uint64
+generate_lookups uniform_dense_1K_uint64
 
 
 echo "Generating inserts..."

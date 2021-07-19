@@ -357,9 +357,21 @@ class Benchmark {
     }
 
     if (perform_insertion && index.insertion_possible()) {
-      const double ns_per_insert = static_cast<double>(individual_ns_sum_inserts)
-                                   / index_insert_data_.size();
-      all_times << "," <<  ns_per_insert;
+        const double ns_per_insert = static_cast<double>(individual_ns_sum_inserts)
+                                     / index_insert_data_.size();
+        all_times << "," << ns_per_insert;
+    }
+
+    if (perform_insertion && index.insertion_possible()) {
+        // calculate throughput
+        const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) / (static_cast<double>(individual_ns_sum_inserts) +  static_cast<double>(runs_[0]));
+        const double throughput_in_s =  throughput_in_ns * 1e9;
+        all_times << "," << throughput_in_s;
+    }else {
+        // calculate throughput
+        const double throughput_in_ns = (lookups_.size()) / (static_cast<double>(runs_[0]));
+        const double throughput_in_s =  throughput_in_ns * 1e9;
+        all_times << "," << throughput_in_s;
     }
 
     // don't print a line if (the first) run failed

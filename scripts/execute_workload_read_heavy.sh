@@ -15,7 +15,7 @@ function do_benchmark() {
         echo "Already have results for $1"
     else
         echo "Executing workload $1"
-        for index in BTree ALEX;
+        for index in ALEX BTree;
         do
           $BENCHMARK -r 1 ./data/$1 ./data/$1_equality_lookups_10M --inserts ./data/$1_inserts_$2 --pareto --only $index | tee -a ./results/results_read_heavy_$1.txt
         done

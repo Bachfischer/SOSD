@@ -9,6 +9,7 @@
 #include "benchmarks/benchmark_fast64.h"
 #include "benchmarks/benchmark_fst.h"
 #include "benchmarks/benchmark_ibtree.h"
+#include "benchmarks/benchmark_pgmdynamic.h"
 #include "benchmarks/benchmark_pgm.h"
 #include "benchmarks/benchmark_rbs.h"
 #include "benchmarks/benchmark_rmi.h"
@@ -51,6 +52,7 @@ void execute_32_bit(Benchmark benchmark, bool pareto, bool only_mode,
   check_only("RMI", benchmark_32_rmi(benchmark, pareto, filename));
   check_only("RS", benchmark_32_rs(benchmark, pareto));
   check_only("TS", benchmark_32_ts(benchmark, pareto));
+  check_only("DPGM", benchmark_32_dpgm(benchmark, pareto));
   check_only("PGM", benchmark_32_pgm(benchmark, pareto));
   check_only("CHT", benchmark_32_cht(benchmark, pareto));
   check_only("BTree", benchmark_32_btree(benchmark, pareto));
@@ -79,6 +81,7 @@ void execute_64_bit(Benchmark benchmark, bool pareto, bool only_mode,
   check_only("RMI", benchmark_64_rmi(benchmark, pareto, filename));
   check_only("RS", benchmark_64_rs(benchmark, pareto));
   check_only("TS", benchmark_64_ts(benchmark, pareto));
+  check_only("DPGM", benchmark_64_dpgm(benchmark, pareto));
   check_only("PGM", benchmark_64_pgm(benchmark, pareto));
   check_only("CHT", benchmark_64_cht(benchmark, pareto));
   check_only("ART", benchmark_64_art(benchmark, pareto));

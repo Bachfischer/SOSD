@@ -53,7 +53,7 @@ echo "Generating queries..."
 #generate_lookups books_800M_uint64
 
 #generate_lookups fb_200M_uint64
-generate_lookups_test uniform_dense_1K_uint64
+#generate_lookups_test uniform_dense_1K_uint64
 
 
 echo "Generating inserts..."

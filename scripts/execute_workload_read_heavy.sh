@@ -17,7 +17,7 @@ function do_benchmark() {
         echo "Executing workload $1"
         for index in ALEX BTree DPGM;
         do
-          $BENCHMARK -r 1 ./data/$1 ./data/$1_equality_lookups_10M --inserts ./data/$1_inserts_$2 --pareto --only $index | tee -a ./results/results_read_heavy_$1.txt
+          $BENCHMARK -r 1 ./data/$1 ./data/$1_equality_lookups_18M --inserts ./data/$1_inserts_2M --pareto --only $index | tee -a ./results/results_read_heavy_$1.txt
         done
     fi
 }
@@ -25,6 +25,5 @@ function do_benchmark() {
 mkdir -p ./results
 
 for dataset in $(cat scripts/datasets_under_test.txt); do
-    do_benchmark "$dataset" "1M"
-    # do_benchmark "$dataset" "10M"
+    do_benchmark "$dataset"
 done

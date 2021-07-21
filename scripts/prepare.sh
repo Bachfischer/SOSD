@@ -11,16 +11,18 @@ make -j 8
 
 function generate_lookups() {
     echo "Generating lookups for $1"
-    [ -f ../data/$1_equality_lookups_18M ] || ./generate ../data/$1 18000000
-    [ -f ../data/$1_equality_lookups_2M ] || ./generate ../data/$1 2000000
-    [ -f ../data/$1_equality_lookups_1M ] || ./generate ../data/$1 1000000
+    #[ -f ../data/$1_equality_lookups_18M ] || ./generate ../data/$1 18000000
+    #[ -f ../data/$1_equality_lookups_2M ] || ./generate ../data/$1 2000000
+    #[ -f ../data/$1_equality_lookups_1M ] || ./generate ../data/$1 1000000
+    [ -f ../data/$1_equality_lookups_0 ] || ./generate ../data/$1 1
 }
 
 function generate_inserts() {
     echo "Generating inserts for $1"
-    [ -f ../data/$1_inserts_18M ] || ./generate ../data/$1 18000000 1
-    [ -f ../data/$1_inserts_2M ] || ./generate ../data/$1 2000000 1
-    [ -f ../data/$1_inserts_1M ] || ./generate ../data/$1 1000000 1
+    [ -f ../data/$1_inserts_20M ] || ./generate ../data/$1 20000000 1
+    #[ -f ../data/$1_inserts_18M ] || ./generate ../data/$1 18000000 1
+    #[ -f ../data/$1_inserts_2M ] || ./generate ../data/$1 2000000 1
+    #[ -f ../data/$1_inserts_1M ] || ./generate ../data/$1 1000000 1
  } &> /dev/null
 
 echo "Generating queries..."
@@ -54,8 +56,8 @@ echo "Generating queries..."
 
 
 echo "Generating inserts..."
-#generate_inserts osm_cellids_200M_uint64
-#generate_inserts wiki_ts_200M_uint64
+generate_inserts osm_cellids_200M_uint64
+generate_inserts wiki_ts_200M_uint64
 #generate_inserts books_200M_uint32
-#generate_inserts books_200M_uint64
-#generate_inserts fb_200M_uint64
+generate_inserts books_200M_uint64
+generate_inserts fb_200M_uint64

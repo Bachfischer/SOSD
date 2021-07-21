@@ -56,8 +56,8 @@ echo "Generating queries..."
 
 
 echo "Generating inserts..."
-generate_inserts osm_cellids_200M_uint64
-generate_inserts wiki_ts_200M_uint64
+#generate_inserts osm_cellids_200M_uint64
+#generate_inserts wiki_ts_200M_uint64
 #generate_inserts books_200M_uint32
-generate_inserts books_200M_uint64
-generate_inserts fb_200M_uint64
+#generate_inserts books_200M_uint64
+#generate_inserts fb_200M_uint64

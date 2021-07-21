@@ -11,15 +11,16 @@ make -j 8
 
 function generate_lookups() {
     echo "Generating lookups for $1"
+    [ -f ../data/$1_equality_lookups_20M ] || ./generate ../data/$1 20000000
     #[ -f ../data/$1_equality_lookups_18M ] || ./generate ../data/$1 18000000
     #[ -f ../data/$1_equality_lookups_2M ] || ./generate ../data/$1 2000000
     #[ -f ../data/$1_equality_lookups_1M ] || ./generate ../data/$1 1000000
-    [ -f ../data/$1_equality_lookups_1 ] || ./generate ../data/$1 1
+    #[ -f ../data/$1_equality_lookups_1 ] || ./generate ../data/$1 1
 }
 
 function generate_inserts() {
     echo "Generating inserts for $1"
-    [ -f ../data/$1_inserts_20M ] || ./generate ../data/$1 20000000 1
+    #[ -f ../data/$1_inserts_20M ] || ./generate ../data/$1 20000000 1
     #[ -f ../data/$1_inserts_18M ] || ./generate ../data/$1 18000000 1
     #[ -f ../data/$1_inserts_2M ] || ./generate ../data/$1 2000000 1
     #[ -f ../data/$1_inserts_1M ] || ./generate ../data/$1 1000000 1

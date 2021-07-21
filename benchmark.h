@@ -363,7 +363,7 @@ class Benchmark {
     }
 
     // calculate throughput for reads and inserts
-    if (perform_insertion && index.insertion_possible() && static_cast<double>(individual_ns_sum_inserts) != 0) {
+    if (perform_insertion && index.insertion_possible()) {
         //std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
         //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
         //std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;

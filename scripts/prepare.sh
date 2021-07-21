@@ -14,7 +14,7 @@ function generate_lookups() {
     #[ -f ../data/$1_equality_lookups_18M ] || ./generate ../data/$1 18000000
     #[ -f ../data/$1_equality_lookups_2M ] || ./generate ../data/$1 2000000
     #[ -f ../data/$1_equality_lookups_1M ] || ./generate ../data/$1 1000000
-    [ -f ../data/$1_equality_lookups_0 ] || ./generate ../data/$1 1
+    [ -f ../data/$1_equality_lookups_1 ] || ./generate ../data/$1 1
 }
 
 function generate_inserts() {

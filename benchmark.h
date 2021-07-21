@@ -376,8 +376,8 @@ class Benchmark {
 
     // calculate throughput for reads
     if (!index.insertion_possible()){
-        std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-        std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
+        //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+        //std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
 
         const double throughput_in_ns = (lookups_.size()) / (static_cast<double>(runs_[0]));
         const double throughput_in_s =  throughput_in_ns * 1e9;

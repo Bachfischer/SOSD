@@ -48,13 +48,13 @@ class Alex : public Competitor {
 
   template <typename KT>
   uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
-    uint64_t timing_sum = 0;
-    for (auto kv : data) {
-      auto timing = util::timing([&] { map_.insert(kv.key, kv.value); });
-      timing_sum += timing;
-    }
 
-    return timing_sum;
+      return util::timing(
+              [&] {
+                  for (auto kv : data) {
+                      map_.insert(kv.key, kv.value);
+                  }
+              });
   }
 
   std::string name() const { return "ALEX"; }

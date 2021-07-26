@@ -52,13 +52,12 @@ class STXBTree : public Competitor {
 
   template <typename KT>
   uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
-    uint64_t timing_sum = 0, timing;
-    for (auto kv : data) {
-      timing = util::timing([&] { btree_.insert(kv.key, kv.value); });
-      timing_sum += timing;
-    }
-
-    return timing_sum;
+      return util::timing(
+              [&] {
+                  for (auto kv : data) {
+                      btree_.insert(kv.key, kv.value)
+                  }
+              });
   }
 
   std::string name() const { return "BTree"; }

@@ -364,10 +364,10 @@ class Benchmark {
 
     if (perform_insertion && index.insertion_possible()) {
         // calculate throughput for reads and inserts
-        //std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
-        //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-        //std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
-        //std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
+        std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
+        std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+        std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
+        std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
 
         const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) / (static_cast<double>(individual_ns_sum_inserts) +  static_cast<double>(runs_[0]));
         const double throughput_in_s =  throughput_in_ns * 1e9;
@@ -375,8 +375,8 @@ class Benchmark {
     }
     else {
         // calculate throughput for reads
-        //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-        //std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
+        std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+        std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
 
         const double throughput_in_ns = (lookups_.size()) / (static_cast<double>(runs_[0]));
         const double throughput_in_s =  throughput_in_ns * 1e9;

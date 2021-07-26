@@ -24,6 +24,6 @@ function do_benchmark() {
 
 mkdir -p ./results
 
-for dataset in $(cat scripts/datasets_under_test_non_poisoned.txt); do
+for dataset in $(cat scripts/datasets_under_test_poisoned.txt); do
     do_benchmark "$dataset"
 done

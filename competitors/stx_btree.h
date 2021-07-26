@@ -55,7 +55,7 @@ class STXBTree : public Competitor {
       return util::timing(
               [&] {
                   for (auto kv : data) {
-                      btree_.insert(kv.key, kv.value)
+                      btree_.insert(kv.key, kv.value);
                   }
               });
   }

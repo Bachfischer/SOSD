@@ -56,7 +56,7 @@ public:
         return util::timing(
                 [&] {
                     for (auto kv : data) {
-                        dpgm_.insert(kv.key, kv.value)
+                        dpgm_.insert(kv.key, kv.value);
                     }
                 });
     }

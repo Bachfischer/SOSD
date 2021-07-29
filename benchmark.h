@@ -134,6 +134,10 @@ class Benchmark {
           params.setParam("variant", index.variant());
           PerfEventBlock e(lookups_.size(), params, /*printHeader=*/first_run_);
           DoEqualityLookups<Index, false, false, false>(index);
+
+          if(perform_insertion && index.insertion_possible()) {
+            individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+          }
         }));
       } else if (cold_cache_) {
         if (num_threads_ > 1)
@@ -142,7 +146,6 @@ class Benchmark {
         if(perform_insertion && index.insertion_possible()) {
           individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
-
         PrintResult(index);
       } else if (fence_) {
         DoEqualityLookups<Index, false, true, false>(index);

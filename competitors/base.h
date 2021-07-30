@@ -13,6 +13,11 @@ class Competitor {
   bool insertion_possible() const { return false; }
 
   template<typename KeyType>
+  uint64_t Search(const std::vector<KeyType> &data) {
+      return 0;
+  }
+
+  template<typename KeyType>
   uint64_t Insert(const std::vector<KeyValue<KeyType>> &data) {
     return 0;
   }

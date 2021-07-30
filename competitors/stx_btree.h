@@ -4,6 +4,7 @@
 
 #include "../utils/tracking_allocator.h"
 #include "base.h"
+#include "../util.h"
 
 template <class KeyType, int size_scale>
 class STXBTree : public Competitor {

@@ -51,6 +51,19 @@ public:
         return (SearchBound){ lo, hi };
     }
 
+    template <typename KT>
+    uint64_t Search(const std::vector<EqualityLookupStructure<KeyType>>& data) {
+
+        return util::timing(
+                [&] {
+                    for (unsigned int idx = 0; idx <  data.size(); ++idx) {
+                        // Compute the actual index for debugging.
+                        const uint64_t lookup_key = data[idx].key;
+                        dpgm_.find(lookup_key);
+                    }
+                });
+    }
+
     template<typename KT>
     uint64_t Insert(const std::vector<KeyValue<KT>> &data) {
         return util::timing(

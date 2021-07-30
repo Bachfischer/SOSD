@@ -372,7 +372,7 @@ namespace sosd {
                 all_times << "," << ns_per_lookup;
             }
 
-            // Lookup time per key
+            // Bulk-Lookup time per key
             const double ns_per_lookup = static_cast<double>(individual_ns_sum_lookups) / lookups_.size();
             all_times << "," << ns_per_lookup;
 
@@ -386,10 +386,10 @@ namespace sosd {
 
             if (perform_insertion && index.insertion_possible()) {
                 // calculate throughput for reads and inserts
-                std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
-                std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-                std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
-                std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
+                //std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
+                //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+                //std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
+                //std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
                 const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) /
                                                 (static_cast<double>(individual_ns_sum_inserts) +
@@ -398,8 +398,8 @@ namespace sosd {
                 all_times << "," << throughput_in_s;
             } else {
                 // calculate throughput for reads
-                std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-                std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
+                //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+                //std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
                 const double throughput_in_ns = (lookups_.size()) / (static_cast<double>(individual_ns_sum_lookups));
                 const double throughput_in_s = throughput_in_ns * 1e9;
@@ -408,10 +408,10 @@ namespace sosd {
 
             // don't print a line if (the first) run failed
             if (runs_[0] != 0) {
-                std::cout << "RESULT: " << index.name() << "," << index.variant()
+                std::cout << index.name() << "," << index.variant()
                           << all_times.str()  // has a leading comma
                           << "," << index.size() << "," << build_ns_ << ","
-                          << searcher_.name() << std::endl;
+                          << searcher_.name() << "," << data_filename_ << std::endl;
             }
             if (csv_) {
                 PrintResultCSV(index);

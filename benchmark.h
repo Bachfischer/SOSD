@@ -135,9 +135,9 @@ class Benchmark {
           PerfEventBlock e(lookups_.size(), params, /*printHeader=*/first_run_);
           DoEqualityLookups<Index, false, false, false>(index);
 
-          individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
           if(perform_insertion && index.insertion_possible()) {
-            individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+              individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
+              individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
           }
         }));
       } else if (cold_cache_) {
@@ -145,26 +145,28 @@ class Benchmark {
           util::fail("cold cache not supported with multiple threads");
         DoEqualityLookups<Index, true, false, true>(index);
 
-        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
         if(perform_insertion && index.insertion_possible()) {
+            individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
           individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
         PrintResult(index);
       } else if (fence_) {
         DoEqualityLookups<Index, false, true, false>(index);
 
-        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
         if(perform_insertion && index.insertion_possible()) {
-              individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+            individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
+
+            individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
 
         PrintResult(index);
       } else {
         DoEqualityLookups<Index, false, false, false>(index);
 
-        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
         if(perform_insertion && index.insertion_possible()) {
-          individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+            individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
+
+            individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
         PrintResult(index);
       }
@@ -368,14 +370,17 @@ class Benchmark {
     // print main results
     std::ostringstream all_times;
     for (unsigned int i = 0; i < runs_.size(); ++i) {
-        // Use bulk-lookup time instead
-        // const double ns_per_lookup = static_cast<double>(runs_[i]) / lookups_.size();
-        // all_times << "," << ns_per_lookup;
-        const double ns_per_lookup = static_cast<double>(individual_ns_sum_lookups) / lookups_.size();
+        const double ns_per_lookup = static_cast<double>(runs_[i]) / lookups_.size();
         all_times << "," << ns_per_lookup;
+
     }
 
     if (perform_insertion && index.insertion_possible()) {
+        // Lookup time per key
+        const double ns_per_lookup = static_cast<double>(individual_ns_sum_lookups) / lookups_.size();
+        all_times << "," << ns_per_lookup;
+
+        // Insert time per key
         const double ns_per_insert = static_cast<double>(individual_ns_sum_inserts)
                                      / index_insert_data_.size();
         all_times << "," << ns_per_insert;

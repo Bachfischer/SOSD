@@ -44,7 +44,7 @@ echo "Generating queries..."
 #generate_lookups osm_cellids_600M_uint64
 #generate_lookups osm_cellids_800M_uint64
 
-generate_lookups wiki_ts_200M_uint64
+#generate_lookups wiki_ts_200M_uint64
 
 #generate_lookups books_200M_uint32
 #generate_lookups books_200M_uint64
@@ -55,7 +55,7 @@ generate_lookups wiki_ts_200M_uint64
 #generate_lookups fb_200M_uint64
 #generate_lookups_test uniform_dense_1K_uint64
 
-#generate_lookups poisoned_wiki_ts_200M_uint64_0.0001
+#generate_lookups poisoned_wiki_ts_200M_uint64
 
 
 echo "Generating inserts..."
@@ -64,4 +64,4 @@ echo "Generating inserts..."
 #generate_inserts books_200M_uint32
 #generate_inserts books_200M_uint64
 #generate_inserts fb_200M_uint64
-#generate_inserts poisoned_wiki_ts_200M_uint64_0.0001
+#generate_inserts poisoned_wiki_ts_200M_uint64

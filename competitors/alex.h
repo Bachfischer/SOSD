@@ -46,6 +46,16 @@ class Alex : public Competitor {
     return (SearchBound){start, stop};
   }
 
+    template <typename KT>
+    uint64_t Search(const std::vector<KeyType>& data) {
+
+        return util::timing(
+                [&] {
+                    for (auto key : data) {
+                        map_.get_payload(key);
+                    }
+                });
+    }
   template <typename KT>
   uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
 

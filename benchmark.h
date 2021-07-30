@@ -135,6 +135,7 @@ class Benchmark {
           PerfEventBlock e(lookups_.size(), params, /*printHeader=*/first_run_);
           DoEqualityLookups<Index, false, false, false>(index);
 
+          individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
           if(perform_insertion && index.insertion_possible()) {
             individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
           }
@@ -143,6 +144,8 @@ class Benchmark {
         if (num_threads_ > 1)
           util::fail("cold cache not supported with multiple threads");
         DoEqualityLookups<Index, true, false, true>(index);
+
+        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
         if(perform_insertion && index.insertion_possible()) {
           individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
@@ -150,6 +153,7 @@ class Benchmark {
       } else if (fence_) {
         DoEqualityLookups<Index, false, true, false>(index);
 
+        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
         if(perform_insertion && index.insertion_possible()) {
               individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
@@ -158,6 +162,7 @@ class Benchmark {
       } else {
         DoEqualityLookups<Index, false, false, false>(index);
 
+        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
         if(perform_insertion && index.insertion_possible()) {
           individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
         }
@@ -363,9 +368,11 @@ class Benchmark {
     // print main results
     std::ostringstream all_times;
     for (unsigned int i = 0; i < runs_.size(); ++i) {
-      const double ns_per_lookup =
-          static_cast<double>(runs_[i]) / lookups_.size();
-      all_times << "," << ns_per_lookup;
+        // Use bulk-lookup time instead
+        // const double ns_per_lookup = static_cast<double>(runs_[i]) / lookups_.size();
+        // all_times << "," << ns_per_lookup;
+        const double ns_per_lookup = static_cast<double>(individual_ns_sum_lookups) / lookups_.size();
+        all_times << "," << ns_per_lookup;
     }
 
     if (perform_insertion && index.insertion_possible()) {
@@ -379,18 +386,18 @@ class Benchmark {
         std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
         std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
         std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
-        std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
+        std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
-        const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) / (static_cast<double>(individual_ns_sum_inserts) +  static_cast<double>(runs_[0]));
+        const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) / (static_cast<double>(individual_ns_sum_inserts) +  static_cast<double>(individual_ns_sum_lookups));
         const double throughput_in_s =  throughput_in_ns * 1e9;
         all_times << "," << throughput_in_s;
     }
     else {
         // calculate throughput for reads
         std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-        std::cout << "Lookup time: " << static_cast<double>(runs_[0]) << std::endl;
+        std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
-        const double throughput_in_ns = (lookups_.size()) / (static_cast<double>(runs_[0]));
+        const double throughput_in_ns = (lookups_.size()) / (static_cast<double>(individual_ns_sum_lookups));
         const double throughput_in_s =  throughput_in_ns * 1e9;
         all_times << "," << throughput_in_s;
     }
@@ -470,6 +477,7 @@ class Benchmark {
 
   uint64_t random_sum_ = 0;
   uint64_t individual_ns_sum_ = 0;
+  uint64_t individual_ns_sum_lookups = 0;
   uint64_t individual_ns_sum_inserts = 0;
   const std::string data_filename_;
   const std::string lookups_filename_;

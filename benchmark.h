@@ -135,7 +135,7 @@ namespace sosd {
                         PerfEventBlock e(lookups_.size(), params, /*printHeader=*/first_run_);
                         DoEqualityLookups<Index, false, false, false>(index);
 
-                        individual_ns_sum_lookups = index.template Search<EqualityLookupStructure<KeyType>>(lookups_);
+                        individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
                         if (perform_insertion && index.insertion_possible()) {
                             individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
                         }
@@ -144,7 +144,7 @@ namespace sosd {
                     if (num_threads_ > 1)
                         util::fail("cold cache not supported with multiple threads");
                     DoEqualityLookups<Index, true, false, true>(index);
-                    individual_ns_sum_lookups = index.template Search<EqualityLookupStructure<KeyType>>(lookups_);
+                    individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
 
                     if (perform_insertion && index.insertion_possible()) {
                         individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
@@ -152,7 +152,7 @@ namespace sosd {
                     PrintResult(index);
                 } else if (fence_) {
                     DoEqualityLookups<Index, false, true, false>(index);
-                    individual_ns_sum_lookups = index.template Search<EqualityLookupStructure<KeyType>>(lookups_);
+                    individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
 
                     if (perform_insertion && index.insertion_possible()) {
                         individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
@@ -161,7 +161,7 @@ namespace sosd {
                     PrintResult(index);
                 } else {
                     DoEqualityLookups<Index, false, false, false>(index);
-                    individual_ns_sum_lookups = index.template Search<EqualityLookupStructure<KeyType>>(lookups_);
+                    individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
 
                     if (perform_insertion && index.insertion_possible()) {
                         individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);

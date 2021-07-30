@@ -51,6 +51,7 @@ class STXBTree : public Competitor {
     return (SearchBound){start, stop};
   }
 
+  template <typename KT>
   uint64_t Search(const std::vector<EqualityLookupStructure<KeyType>>& data) {
 
     return util::timing(

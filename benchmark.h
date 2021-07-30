@@ -138,6 +138,7 @@ namespace sosd {
                         individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
                         if (perform_insertion && index.insertion_possible()) {
                             individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                            std::cout << "Successfully inserted data"  << std::endl;
                         }
                     }));
                 } else if (cold_cache_) {
@@ -148,6 +149,7 @@ namespace sosd {
 
                     if (perform_insertion && index.insertion_possible()) {
                         individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                        std::cout << "Successfully inserted data"  << std::endl;
                     }
                     PrintResult(index);
                 } else if (fence_) {
@@ -156,6 +158,7 @@ namespace sosd {
 
                     if (perform_insertion && index.insertion_possible()) {
                         individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                        std::cout << "Successfully inserted data"  << std::endl;
                     }
 
                     PrintResult(index);
@@ -165,6 +168,7 @@ namespace sosd {
 
                     if (perform_insertion && index.insertion_possible()) {
                         individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                        std::cout << "Successfully inserted data"  << std::endl;
                     }
                     PrintResult(index);
                 }

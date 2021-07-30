@@ -82,7 +82,7 @@ namespace sosd {
             // Add artificial values to keys.
             data_ = util::add_values(keys);
             // Load lookups.
-            lookups_ = util::load_data<EqualityLookup<KeyType>>(lookups_filename_);
+            lookups_ = util::load_data<EqualityLookupStructure<KeyType>>(lookups_filename_);
 
             // Create the data for the index (key -> position).
             for (uint64_t pos = 0; pos < data_.size(); pos++) {
@@ -492,7 +492,7 @@ namespace sosd {
         std::vector<KeyValue<KeyType>> index_data_;
         std::vector<KeyValue<KeyType>> index_insert_data_;
         bool unique_keys_;
-        std::vector<EqualityLookup<KeyType>> lookups_;
+        std::vector<EqualityLookupStructure<KeyType>> lookups_;
         uint64_t build_ns_;
         double log_sum_search_bound_;
         double l1_sum_search_bound_;

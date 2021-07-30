@@ -27,7 +27,7 @@ class Alex : public Competitor {
         [&] { map_.bulk_load(loading_data.data(), loading_data.size()); });
   }
 
-  SearchBound Lookup(const KeyType lookup_key) const {
+  SearchBound EqualityLookup(const KeyType lookup_key) const {
     auto it = map_.lower_bound(lookup_key);
 
     uint64_t guess;
@@ -48,7 +48,7 @@ class Alex : public Competitor {
   }
 
     template <typename KT>
-    uint64_t Search(const std::vector<EqualityLookup<KeyType>>& data) {
+    uint64_t Search(const std::vector<EqualityLookupStructure<KeyType>>& data) {
 
         return util::timing(
                 [&] {

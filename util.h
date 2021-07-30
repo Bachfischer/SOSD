@@ -29,7 +29,7 @@ struct Row {
 };
 
 template <class KeyType = uint64_t>
-struct EqualityLookup {
+struct EqualityLookupStructure {
   KeyType key;
   uint64_t result;
 };

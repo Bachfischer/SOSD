@@ -54,7 +54,7 @@ class Alex : public Competitor {
                 [&] {
                     for (unsigned int idx = 0; idx <  data.size(); ++idx) {
                         // Compute the actual index for debugging.
-                        const volatile uint64_t lookup_key = data[idx].key;
+                        const uint64_t lookup_key = data[idx].key;
                         map_.get_payload(lookup_key);
                     }
                 });

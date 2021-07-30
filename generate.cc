@@ -20,10 +20,10 @@ constexpr size_t max_num_retries = 100;
 // Generates `num_lookups` lookups such that `negative_lookup_ratio` lookups are
 // negative.
 template <class KeyType, class T>
-vector<EqualityLookup<KeyType>> generate_equality_lookups(
+vector<EqualityLookupStructure<KeyType>> generate_equality_lookups(
     const vector<Row<KeyType>>& data, const vector<T>& unique_keys,
     const size_t num_lookups, const double negative_lookup_ratio) {
-  vector<EqualityLookup<KeyType>> lookups;
+  vector<EqualityLookupStructure<KeyType>> lookups;
   lookups.reserve(num_lookups);
   util::FastRandom ranny(42);
   size_t num_generated = 0;
@@ -77,9 +77,9 @@ vector<EqualityLookup<KeyType>> generate_equality_lookups(
 }
 
 template <class KeyType>
-vector<EqualityLookup<KeyType>> generate_equality_lookups_from_trace(
+vector<EqualityLookupStructure<KeyType>> generate_equality_lookups_from_trace(
     const vector<Row<KeyType>>& data, const vector<KeyType> keys) {
-  vector<EqualityLookup<KeyType>> lookups;
+  vector<EqualityLookupStructure<KeyType>> lookups;
   BranchingBinarySearch<KeyType> bbs;
 
   size_t nq;
@@ -109,7 +109,7 @@ const string to_nice_number(uint64_t num) {
 
 template <class KeyType>
 void print_equality_lookup_stats(
-    const vector<EqualityLookup<KeyType>>& lookups) {
+    const vector<EqualityLookupStructure<KeyType>>& lookups) {
   size_t negative_count = 0;
   for (const auto& lookup : lookups)
     if (lookup.result == util::NOT_FOUND) ++negative_count;
@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
       vector<Row<uint32_t>> data = util::add_values(keys);
 
       // Generate benchmarks.
-      vector<EqualityLookup<uint32_t>> equality_lookups;
+      vector<EqualityLookupStructure<uint32_t>> equality_lookups;
       if (filename.find("corp") != std::string::npos) {
         // load the precomputed trace
         std::cout << "generating lookups from trace" << std::endl;
@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
       vector<Row<uint64_t>> data = util::add_values(keys);
 
       // Generate benchmarks.
-      vector<EqualityLookup<uint64_t>> equality_lookups;
+      vector<EqualityLookupStructure<uint64_t>> equality_lookups;
       if (filename.find("corp") != std::string::npos) {
         // load the precomputed trace
         std::cout << "generating lookups from trace" << std::endl;

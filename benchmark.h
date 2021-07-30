@@ -277,7 +277,7 @@ namespace sosd {
                     _mm_mfence();
 
                     const auto start = std::chrono::high_resolution_clock::now();
-                    bound = index.EqualityLookup(lookup_key);
+                    bound = index.Lookuplookup_key);
                     uint64_t actual = searcher_.search(data_, lookup_key, &qualifying,
                                                        bound.start, bound.stop);
                     if (!CheckResults(actual, expected, lookup_key, bound)) {
@@ -293,7 +293,7 @@ namespace sosd {
 
                 } else {
                     // not tracking errors, measure the lookup time.
-                    bound = index.EqualityLookup(lookup_key);
+                    bound = index.Lookup(lookup_key);
                     iter = std::lower_bound(
                             data_.begin() + bound.start, data_.begin() + bound.stop, lookup_key,
                             [](const Row<KeyType> &lhs, const KeyType lookup_key) {
@@ -327,7 +327,7 @@ namespace sosd {
             for (unsigned int idx = 0; idx < lookups_.size(); ++idx) {
                 const volatile uint64_t lookup_key = lookups_[idx].key;
 
-                bound = index.EqualityLookup(lookup_key);
+                bound = index.Lookup(lookup_key);
                 if (bound.start != bound.stop) {
                     log_sum_search_bound_ += log2((double) (bound.stop - bound.start));
                     l1_sum_search_bound_ += abs((double) (bound.stop - bound.start));

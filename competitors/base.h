@@ -13,7 +13,7 @@ class Competitor {
   bool insertion_possible() const { return false; }
 
   template<typename KeyType>
-  uint64_t Search(const std::vector<KeyType> &data) {
+  uint64_t Search(const std::vector<EqualityLookup<KeyType>>& data) {
       return 0;
   }
 

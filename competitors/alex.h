@@ -5,6 +5,7 @@
 #include "./ALEX/src/core/alex.h"
 #include "./ALEX/src/core/alex_base.h"
 #include "base.h"
+#include "../util.h"
 
 template <class KeyType, int size_scale>
 class Alex : public Competitor {
@@ -26,7 +27,7 @@ class Alex : public Competitor {
         [&] { map_.bulk_load(loading_data.data(), loading_data.size()); });
   }
 
-  SearchBound EqualityLookup(const KeyType lookup_key) const {
+  SearchBound Lookup(const KeyType lookup_key) const {
     auto it = map_.lower_bound(lookup_key);
 
     uint64_t guess;
@@ -47,15 +48,18 @@ class Alex : public Competitor {
   }
 
     template <typename KT>
-    uint64_t Search(const std::vector<KeyType>& data) {
+    uint64_t Search(const std::vector<EqualityLookup<KeyType>>& data) {
 
         return util::timing(
                 [&] {
-                    for (auto key : data) {
-                        map_.get_payload(key);
+                    for (unsigned int idx = 0; idx <  data.size(); ++idx) {
+                        // Compute the actual index for debugging.
+                        const volatile uint64_t lookup_key = data[idx].key;
+                        map_.get_payload(lookup_key);
                     }
                 });
     }
+
   template <typename KT>
   uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
 

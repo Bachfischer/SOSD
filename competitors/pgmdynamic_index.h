@@ -42,14 +42,20 @@ public:
                        extract_key);
 
         uint64_t build_time =
-                util::timing([&] { pgm::DynamicPGMIndex<KeyType, ValueType, pgm::PGMIndex<KeyType, pgm_error, 4>> dpgm_(keys.begin(), keys.end()); });
+                util::timing([&] { 
+		for (auto kv : data) {
+    			dpgm_.insert_or_assign(kv.key, kv.value);
+		} 
+	});
 
         return build_time;
     }
 
     SearchBound EqualityLookup(const KeyType lookup_key) const {
-        auto pos = dpgm_.find(lookup_key);
-        auto lo = pos->second, hi = pos->second;
+        std::cout << "Looking up key: " << lookup_key << std::endl;
+ 	auto pos = dpgm_.find(lookup_key);
+        auto lo = pos->second-1, hi = pos->second;
+	std::cout << "Lo has value: " << lo << std::endl;
         return (SearchBound){ lo, hi };
     }
 

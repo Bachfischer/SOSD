@@ -42,7 +42,7 @@ public:
                        extract_key);
 
         uint64_t build_time =
-                util::timing([&] { dpgm_ = decltype(dpgm_)(keys.begin(), keys.end()); });
+                util::timing([&] { pgm::DynamicPGMIndex<KeyType, ValueType, pgm::PGMIndex<KeyType, pgm_error, 4>> dpgm_(keys.begin(), keys.end()); });
 
         return build_time;
     }
@@ -91,7 +91,7 @@ public:
     }
 
 private:
-    pgm::DynamicPGMIndex<KeyType, ValueType, pgm::PGMIndex<KeyType, pgm_error, 4>> dpgm_
+    pgm::DynamicPGMIndex<KeyType, ValueType, pgm::PGMIndex<KeyType, pgm_error, 4>> dpgm_;
 };
 
 #endif //SOSD_PGMDYNAMIC_INDEX_H

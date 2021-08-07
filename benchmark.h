@@ -414,7 +414,7 @@ namespace sosd {
             if (runs_[0] != 0) {
                 std::cout << index.name() << "," << index.variant()
                           << all_times.str()  // has a leading comma
-                          << "," << index.size() << "," << build_ns_ << ","
+                          << "," << build_ns_ << ","
                           << searcher_.name() << "," << data_filename_ << std::endl;
             }
             if (csv_) {

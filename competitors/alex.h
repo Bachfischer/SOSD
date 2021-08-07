@@ -73,7 +73,10 @@ class Alex : public Competitor {
 
   std::string name() const { return "ALEX"; }
 
-  std::size_t size() const { return map_.model_size() + map_.data_size(); }
+  std::size_t size() const {
+      //return map_.model_size() + map_.data_size();
+      return 0;
+  }
 
   int variant() const { return size_scale; }
 

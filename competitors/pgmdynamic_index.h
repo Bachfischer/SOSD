@@ -41,6 +41,8 @@ public:
         std::transform(data.begin(), data.end(), std::back_inserter(keys),
                        extract_key);
 
+        // TODO: fix bulk-loading of keys ("use of deleted function")
+        // util::timing([&] { pgm::DynamicPGMIndex<KeyType, ValueType, pgm::PGMIndex<KeyType, pgm_error, 4>> dpgm_(keys.begin(), keys.end()); });
         uint64_t build_time =
                 util::timing([&] { 
 		for (auto kv : data) {
@@ -52,10 +54,11 @@ public:
     }
 
     SearchBound EqualityLookup(const KeyType lookup_key) const {
-        std::cout << "Looking up key: " << lookup_key << std::endl;
- 	auto pos = dpgm_.find(lookup_key);
-        auto lo = pos->second-1, hi = pos->second;
-	std::cout << "Lo has value: " << lo << std::endl;
+        //std::cout << "Looking up key: " << lookup_key << std::endl;
+        auto pos = dpgm_.find(lookup_key);
+        // TODO: Switch to smaller value
+        auto lo = pos->second-100, hi = pos->second+100;
+        //std::cout << "Lo has value: " << lo << std::endl;
         return (SearchBound){ lo, hi };
     }
 

@@ -49,7 +49,7 @@ public:
 
     SearchBound EqualityLookup(const KeyType lookup_key) const {
         auto pos = dpgm_.find(lookup_key);
-        auto lo = pos->value(), hi = pos->value();
+        auto lo = pos->second, hi = pos->second;
         return (SearchBound){ lo, hi };
     }
 

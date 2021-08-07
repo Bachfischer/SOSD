@@ -8,7 +8,10 @@
 
 #include "../util.h"
 #include "base.h"
-#include "pgm_index.hpp"
+//#include "pgm_index.hpp"
+//#include "pgm_index_dynamic.hpp"
+#include "./PGM-index/include/pgm/pgm_index.hpp"
+#include "./PGM-index/include/pgm/pgm_index_dynamic.hpp"
 //#include <functional>
 //#include <boost/iterator/transform_iterator.hpp>
 //#include <boost/range/adaptors.hpp>
@@ -40,7 +43,7 @@ class PGM : public Competitor {
   }
 
   SearchBound EqualityLookup(const KeyType lookup_key) const {
-    auto approx_range = pgm_.find_approximate_position(lookup_key);
+    auto approx_range = pgm_.search(lookup_key);
     auto lo = approx_range.lo;
     auto hi = approx_range.hi;
 
@@ -58,7 +61,7 @@ class PGM : public Competitor {
   int variant() const { return pgm_error; }
 
  private:
-  PGMIndex<KeyType, pgm_error, 4> pgm_;
+    pgm::PGMIndex<KeyType, pgm_error, 4> pgm_;
 };
 
 #endif  // SOSDB_PGM_H

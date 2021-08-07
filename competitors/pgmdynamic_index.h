@@ -8,8 +8,10 @@
 
 #include "../util.h"
 #include "base.h"
-#include "pgm_index.hpp"
-#include "pgm_index_dynamic.hpp"
+//#include "pgm_index.hpp"
+//#include "pgm_index_dynamic.hpp"
+#include "./PGM-index/include/pgm/pgm_index.hpp"
+#include "./PGM-index/include/pgm/pgm_index_dynamic.hpp"
 //#include <functional>
 //#include <boost/iterator/transform_iterator.hpp>
 //#include <boost/range/adaptors.hpp>
@@ -69,7 +71,7 @@ public:
         return util::timing(
                 [&] {
                     for (auto kv : data) {
-                        dpgm_.insert(kv.key, kv.value);
+                        dpgm_.insert_or_assign(kv.key, kv.value);
                     }
                 });
     }
@@ -89,7 +91,7 @@ public:
     }
 
 private:
-    DynamicPGMIndex<KeyType, ValueType, PGMIndex<KeyType, pgm_error, 4>> dpgm_;
+    pgm::DynamicPGMIndex<KeyType, ValueType, pgm::PGMIndex<KeyType, pgm_error, 4>> dpgm_
 };
 
 #endif //SOSD_PGMDYNAMIC_INDEX_H

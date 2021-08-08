@@ -54,7 +54,7 @@ public:
     }
 
     SearchBound EqualityLookup(const KeyType lookup_key) const {
-        std::cout << "Looking up key: " << lookup_key << std::endl;
+        //std::cout << "Looking up key: " << lookup_key << std::endl;
         auto pos = dpgm_.find(lookup_key);
         // TODO: Switch to smaller value
 	size_t lo = 0;
@@ -62,7 +62,7 @@ public:
 		lo = pos->second-100;
 	}
         auto hi = pos->second+100;
-        std::cout << "Lo has value: " << lo << std::endl;
+        //std::cout << "Lo has value: " << lo << std::endl;
         return (SearchBound){ lo, hi };
     }
 

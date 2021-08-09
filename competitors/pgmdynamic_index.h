@@ -85,6 +85,7 @@ public:
                 [&] {
                     for (unsigned int idx = 0; idx <  data.size(); ++idx) {
                         std::cout << "Inserting key: " << data[idx].key << " with payload: " << data[idx].result << std::endl;
+                        // Handle sentinel value: https://github.com/gvinciguerra/PGM-index/issues/29
                         if(data[idx].key == std::numeric_limits<K>::max()){
                             data[idx].key = data[idx].key-1;
                         }

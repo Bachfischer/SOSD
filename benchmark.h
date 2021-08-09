@@ -393,10 +393,10 @@ namespace sosd {
 
             if (perform_insertion && index.insertion_possible()) {
                 // calculate throughput for reads and inserts
-                std::cout << "index_insert_data.size(): " << insert_keys_.size() << std::endl;
-                std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-                std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
-                std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
+                //std::cout << "index_insert_data.size(): " << insert_keys_.size() << std::endl;
+                //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+                //std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
+                //std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
                 const double throughput_in_ns = (insert_keys_.size() + lookups_.size()) /
                                                 (static_cast<double>(individual_ns_sum_inserts) +
@@ -417,7 +417,7 @@ namespace sosd {
             if (runs_[0] != 0) {
                 std::cout << index.name() << "," << index.variant()
                           << all_times.str()  // has a leading comma
-                          << "," << build_ns_ << ","
+                          << "," << index.size() << "," << build_ns_ << ","
                           << searcher_.name() << "," << data_filename_ << std::endl;
             }
             if (csv_) {

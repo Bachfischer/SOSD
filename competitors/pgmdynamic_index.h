@@ -84,7 +84,7 @@ public:
         return util::timing(
                 [&] {
                     for (unsigned int idx = 0; idx <  data.size(); ++idx) {
-                        //dpgm_.insert_or_assign(data[idx].key, data[idx].result);
+                        dpgm_.insert_or_assign(data[idx].key, data[idx].result);
                     }
                 });
     }

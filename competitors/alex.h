@@ -66,10 +66,10 @@ class Alex : public Competitor {
       return util::timing(
               [&] {
                   for (unsigned int idx = 0; idx <  data.size(); ++idx) {
-                      std::cout << "Inserting key: " << data[idx].key << " with payload: " << data[idx].result << std::endl;
+                      //std::cout << "Inserting key: " << data[idx].key << " with payload: " << data[idx].result << std::endl;
                       map_.insert(data[idx].key, data[idx].result);
                   }
-                  std::cout << "Finished inserting keys" << std::endl;
+                  //std::cout << "Finished inserting keys" << std::endl;
               });
   }
 

@@ -65,11 +65,11 @@ class STXBTree : public Competitor {
   }
 
   template <typename KT>
-  uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
+  uint64_t Insert(const std::vector<EqualityLookupStructure<KeyType>>& data) {
       return util::timing(
               [&] {
                   for (unsigned int idx = 0; idx <  data.size(); ++idx) {
-                      btree_.insert(data[idx].key, data[idx].value);
+                      btree_.insert(data[idx].key, data[idx].result);
                   }
               });
   }

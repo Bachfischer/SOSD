@@ -46,7 +46,7 @@ public:
         uint64_t build_time =
                 util::timing([&] { 
 		for (auto kv : data) {
-    			dpgm_.insert_or_assign(kv.key, kv.value);
+    			dpgm_.insert_or_assign(kv.key, kv.result);
 		} 
 	});
 

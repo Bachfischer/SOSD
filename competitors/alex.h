@@ -61,15 +61,15 @@ class Alex : public Competitor {
     }
 
   template <typename KT>
-  uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
+  uint64_t Insert(const std::vector<EqualityLookupStructure<KeyType>>& data) {
 
       return util::timing(
               [&] {
-                  for (auto kv : data) {
-		      std::cout << "Inserting key: " << kv.key << " with payload: " << kv.value << std::endl;
-                      map_.insert(kv.key, kv.value);
+                  for (unsigned int idx = 0; idx <  data.size(); ++idx) {
+                      std::cout << "Inserting key: " << data[idx].key << " with payload: " << data[idx].key << std::endl;
+                      map_.insert(data[idx].key, data[idx].value);
                   }
-		  std::cout << "Finished inserting keys" << std::endl;
+                  std::cout << "Finished inserting keys" << std::endl;
               });
   }
 

@@ -18,7 +18,7 @@ class Competitor {
   }
 
   template<typename KeyType>
-  uint64_t Insert(const std::vector<KeyValue<KeyType>> &data) {
+  uint64_t Insert(const std::vector<EqualityLookupStructure<KeyType>>& data) {
     return 0;
   }
 };

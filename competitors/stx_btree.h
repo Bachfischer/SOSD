@@ -68,8 +68,8 @@ class STXBTree : public Competitor {
   uint64_t Insert(const std::vector<KeyValue<KT>>& data) {
       return util::timing(
               [&] {
-                  for (auto kv : data) {
-                      btree_.insert(kv.key, kv.value);
+                  for (unsigned int idx = 0; idx <  data.size(); ++idx) {
+                      btree_.insert(data[idx].key, data[idx].value);
                   }
               });
   }

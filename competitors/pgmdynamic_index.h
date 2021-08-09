@@ -80,11 +80,11 @@ public:
     }
 
     template<typename KT>
-    uint64_t Insert(const std::vector<KeyValue<KT>> &data) {
+    uint64_t Insert(const std::vector<EqualityLookupStructure<KeyType>>& data) {
         return util::timing(
                 [&] {
-                    for (auto kv : data) {
-                        dpgm_.insert_or_assign(kv.key, kv.value);
+                    for (unsigned int idx = 0; idx <  data.size(); ++idx) {
+                        dpgm_.insert_or_assign(data[idx].key, data[idx].value);
                     }
                 });
     }

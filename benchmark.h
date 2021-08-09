@@ -92,12 +92,15 @@ namespace sosd {
                 perform_insertion = true;
 
                 // Load insert data
-                std::vector<KeyType> insert_keys = util::load_data<EqualityLookupStructure<KeyType>>(inserts_filename_);
+                insert_keys_ = util::load_data<EqualityLookupStructure<KeyType>>(inserts_filename_);
 
+                // Optional: use position as payload
+                /*
                 uint64_t bulk_load_size = data_.size();
-                for (uint64_t pos = 0; pos < insert_keys.size(); pos++) {
-                    index_insert_data_.push_back((KeyValue<KeyType>) {insert_keys[pos], bulk_load_size + pos});
+                for (uint64_t pos = 0; pos < insert_keys_.size(); pos++) {
+                    index_insert_data_.push_back((KeyValue<KeyType>) {insert_keys_[pos], bulk_load_size + pos});
                 }
+                */
             }
 
             if (cold_cache) {
@@ -137,7 +140,7 @@ namespace sosd {
 
                         individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
                         if (perform_insertion && index.insertion_possible()) {
-                            individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                            individual_ns_sum_inserts = index.template Insert<KeyType>(insert_keys_);
                             //std::cout << "Successfully inserted data"  << std::endl;
                         }
                     }));
@@ -148,7 +151,7 @@ namespace sosd {
                     individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
 
                     if (perform_insertion && index.insertion_possible()) {
-                        individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                        individual_ns_sum_inserts = index.template Insert<KeyType>(insert_keys_);
                         //std::cout << "Successfully inserted data"  << std::endl;
                     }
                     PrintResult(index);
@@ -157,7 +160,7 @@ namespace sosd {
                     individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
 
                     if (perform_insertion && index.insertion_possible()) {
-                        individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                        individual_ns_sum_inserts = index.template Insert<KeyType>(insert_keys_);
                         //std::cout << "Successfully inserted data"  << std::endl;
                     }
 
@@ -167,7 +170,7 @@ namespace sosd {
                     individual_ns_sum_lookups = index.template Search<KeyType>(lookups_);
 
                     if (perform_insertion && index.insertion_possible()) {
-                        individual_ns_sum_inserts = index.template Insert<KeyType>(index_insert_data_);
+                        individual_ns_sum_inserts = index.template Insert<KeyType>(insert_keys_);
                         //std::cout << "Successfully inserted data"  << std::endl;
                     }
                     PrintResult(index);
@@ -384,18 +387,18 @@ namespace sosd {
             if (perform_insertion && index.insertion_possible()) {
                 // Insert time per key
                 const double ns_per_insert = static_cast<double>(individual_ns_sum_inserts)
-                                             / index_insert_data_.size();
+                                             / insert_keys_.size();
                 all_times << "," << ns_per_insert;
             }
 
             if (perform_insertion && index.insertion_possible()) {
                 // calculate throughput for reads and inserts
-                std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
+                std::cout << "index_insert_data.size(): " << insert_keys_.size() << std::endl;
                 std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
                 std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
                 std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
-                const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) /
+                const double throughput_in_ns = (insert_keys_.size() + lookups_.size()) /
                                                 (static_cast<double>(individual_ns_sum_inserts) +
                                                  static_cast<double>(individual_ns_sum_lookups));
                 const double throughput_in_s = throughput_in_ns * 1e9;
@@ -495,9 +498,10 @@ namespace sosd {
         std::vector<Row<KeyType>> data_;
         std::vector<Row<KeyType>> insert_data_;
         std::vector<KeyValue<KeyType>> index_data_;
-        std::vector<KeyValue<KeyType>> index_insert_data_;
+        //std::vector<KeyValue<KeyType>> index_insert_data_;
         bool unique_keys_;
         std::vector<EqualityLookupStructure<KeyType>> lookups_;
+        std::vector<EqualityLookupStructure<KeyType>> insert_keys_;
         uint64_t build_ns_;
         double log_sum_search_bound_;
         double l1_sum_search_bound_;

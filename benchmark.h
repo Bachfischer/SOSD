@@ -92,7 +92,7 @@ namespace sosd {
                 perform_insertion = true;
 
                 // Load insert data
-                std::vector<KeyType> insert_keys = util::load_data<KeyType>(inserts_filename_);
+                std::vector<KeyType> insert_keys = util::load_data<EqualityLookupStructure<KeyType>>(inserts_filename_);
 
                 uint64_t bulk_load_size = data_.size();
                 for (uint64_t pos = 0; pos < insert_keys.size(); pos++) {

@@ -66,8 +66,10 @@ class Alex : public Competitor {
       return util::timing(
               [&] {
                   for (auto kv : data) {
+		      std::cout << "Inserting key: " << kv.key << " with payload: " << kv.value << std::endl;
                       map_.insert(kv.key, kv.value);
                   }
+		  std::cout << "Finished inserting keys" << std::endl;
               });
   }
 
@@ -87,6 +89,6 @@ class Alex : public Competitor {
   uint64_t data_size_ = 0;
   // alex::Alex<KeyType, uint64_t> map_;
   alex::Alex<KeyType, uint64_t, alex::AlexCompare,
-             std::allocator<std::pair<KeyType, uint64_t>>, false>
+             std::allocator<std::pair<KeyType, uint64_t>>, true>
       map_;
 };

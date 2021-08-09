@@ -390,10 +390,10 @@ namespace sosd {
 
             if (perform_insertion && index.insertion_possible()) {
                 // calculate throughput for reads and inserts
-                //std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
-                //std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
-                //std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
-                //std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
+                std::cout << "index_insert_data.size(): " << index_insert_data_.size() << std::endl;
+                std::cout << "lookups_.size(): " << lookups_.size() << std::endl;
+                std::cout << "Insert time: " << static_cast<double>(individual_ns_sum_inserts) << std::endl;
+                std::cout << "Lookup time: " << static_cast<double>(individual_ns_sum_lookups) << std::endl;
 
                 const double throughput_in_ns = (index_insert_data_.size() + lookups_.size()) /
                                                 (static_cast<double>(individual_ns_sum_inserts) +

@@ -28,7 +28,9 @@ class Alex : public Competitor {
   }
 
   SearchBound EqualityLookup(const KeyType lookup_key) const {
-    auto it = map_.lower_bound(lookup_key);
+      std::cout << "Looking up key: " << lookup_key << std::endl;
+
+      auto it = map_.lower_bound(lookup_key);
 
     uint64_t guess;
     if (it == map_.cend()) {

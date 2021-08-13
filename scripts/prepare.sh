@@ -58,7 +58,7 @@ echo "Generating queries..."
 #generate_lookups poisoned_wiki_ts_200M_uint64
 #generate_lookups poisoned_fb_200M_uint64
 #generate_lookups poisoned_osm_cellids_200M_uint64
-generate_lookups poisoned_books_200M_uint64
+#generate_lookups poisoned_books_200M_uint64
 
 echo "Generating inserts..."
 #generate_inserts osm_cellids_200M_uint64
@@ -70,4 +70,4 @@ echo "Generating inserts..."
 #generate_inserts poisoned_wiki_ts_200M_uint64
 #generate_inserts poisoned_fb_200M_uint64
 #generate_inserts poisoned_osm_cellids_200M_uint64
-generate_inserts poisoned_books_200M_uint64
+#generate_inserts poisoned_books_200M_uint64

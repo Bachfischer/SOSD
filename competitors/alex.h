@@ -89,6 +89,6 @@ class Alex : public Competitor {
   uint64_t data_size_ = 0;
   // alex::Alex<KeyType, uint64_t> map_;
   alex::Alex<KeyType, uint64_t, alex::AlexCompare,
-             std::allocator<std::pair<KeyType, uint64_t>>, false>
+             std::allocator<std::pair<KeyType, uint64_t>>, true>
       map_;
 };

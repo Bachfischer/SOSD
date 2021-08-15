@@ -13,7 +13,7 @@ class LIPP : public Competitor {
   uint64_t Build(const std::vector<KeyValue<KeyType>>& data) {
     std::vector<std::pair<KeyType, uint64_t>> loading_data;
     loading_data.reserve(data.size());
-    // We use ALEX as a non-clustered index by only inserting every n-th entry.
+    // We use LIPP as a non-clustered index by only inserting every n-th entry.
     // n is defined by size_scale.
     for (auto& itm : data) {
       uint64_t idx = itm.value;

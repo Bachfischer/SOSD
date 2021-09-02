@@ -44,8 +44,8 @@ void benchmark_64_lipp(sosd::Benchmark<uint64_t, Searcher>& benchmark,
     if (benchmark.uses_binary_search()) {
       benchmark.template Run<Lipp<uint64_t, 4096>>();
       benchmark.template Run<Lipp<uint64_t, 8192>>();
-    }*/
-  }
+    }
+  }*/
 }
 
 INSTANTIATE_TEMPLATES(benchmark_32_lipp, uint32_t);

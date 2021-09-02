@@ -73,5 +73,5 @@ class LIPP : public Competitor {
 
  private:
   uint64_t data_size_ = 0;
-  LIPP<KeyType, uint64> lipp_;
+  LIPP<KeyType, uint64_t> lipp_;
 };

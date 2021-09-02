@@ -68,8 +68,8 @@ namespace sosd {
             // Load data.
             std::vector<KeyType> keys = util::load_data<KeyType>(data_filename_);
             // remove duplicates
-            std::sort(keys.begin(), keys.end(), [](const KeyType& l, const KeyType& r) ->bool{return l.key < r.key;});
-            auto last = std::unique(keys.begin(), keys.end(), [](const KeyType& l, const KeyType& r) ->bool{return l.key == r.key;});
+            std::sort(keys.begin(), keys.end(), [](const KeyType& l, const KeyType& r) ->bool{return l < r;});
+            auto last = std::unique(keys.begin(), keys.end(), [](const KeyType& l, const KeyType& r) ->bool{return l == r;});
             keys.erase(last, keys.end());
 
             log_sum_search_bound_ = 0.0;

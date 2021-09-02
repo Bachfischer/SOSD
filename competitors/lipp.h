@@ -28,20 +28,13 @@ class Lipp : public Competitor {
   }
 
   SearchBound EqualityLookup(const KeyType lookup_key) const {
-        std::cout << "Looking up key: " << lookup_key << std::endl;
+        //std::cout << "Looking up key: " << lookup_key << std::endl;
 
+        //TODO: set skip_existence_check = false
         auto payload = lipp_.at(lookup_key);
+        //std::cout << "Payload has value: " << payload << std::endl;
 
-	// TODO: Switch to smaller value
-        size_t lo = 0;
-        if (payload >= 100) {
-            lo = payload-100;
-        }
-        auto hi = payload+100;
-        std::cout << "Lo has value: " << lo << std::endl;
-
-
-        return (SearchBound){lo, hi};
+        return (SearchBound){payload, payload};
   }
 
     template <typename KT>

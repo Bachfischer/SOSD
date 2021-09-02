@@ -30,7 +30,7 @@ template <template <typename> typename Searcher>
 void benchmark_64_lipp(sosd::Benchmark<uint64_t, Searcher>& benchmark,
                        bool pareto) {
   benchmark.template Run<Lipp<uint64_t, 1>>();
-  if (pareto) {
+/*  if (pareto) {
     benchmark.template Run<Lipp<uint64_t, 4>>();
     benchmark.template Run<Lipp<uint64_t, 8>>();
     benchmark.template Run<Lipp<uint64_t, 16>>();
@@ -44,7 +44,7 @@ void benchmark_64_lipp(sosd::Benchmark<uint64_t, Searcher>& benchmark,
     if (benchmark.uses_binary_search()) {
       benchmark.template Run<Lipp<uint64_t, 4096>>();
       benchmark.template Run<Lipp<uint64_t, 8192>>();
-    }
+    }*/
   }
 }
 

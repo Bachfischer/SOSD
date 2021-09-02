@@ -42,9 +42,14 @@ struct SearchBound {
 
 namespace util {
 
-static bool compareEqualityLookupStructure(const EqualityLookupStructure<uint64_t> &a, const EqualityLookupStructure<uint64_t> &b)
+static bool compareEqualityLookupStructure_less(const EqualityLookupStructure<uint64_t> &a, const EqualityLookupStructure<uint64_t> &b)
 {
     return a.key < b.key;
+}
+
+static bool compareEqualityLookupStructure_equal(const EqualityLookupStructure<uint64_t> &a, const EqualityLookupStructure<uint64_t> &b)
+{
+    return a.key==b.key;
 }
 
 const static uint64_t NOT_FOUND = std::numeric_limits<uint64_t>::max();
@@ -136,8 +141,9 @@ static std::vector<T> load_data(const std::string& filename,
   const uint64_t ms = ns / 1e6;
 
   // remove duplicates first
-  sort(data.begin(), data.end(), compareEqualityLookupStructure);
-  data = remove_duplicates(data);
+  sort(data.begin(), data.end(), compareEqualityLookupStructure_less);
+  auto last = std::unique(data.begin(), data.end(), compareEqualityLookupStructure_equal);
+  data.erase(last, data.end());
 
   if (print) {
     std::cout << "read " << data.size() << " values from " << filename << " in "

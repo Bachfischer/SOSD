@@ -134,10 +134,7 @@ static std::vector<T> load_data(const std::string& filename,
   });
   const uint64_t ms = ns / 1e6;
 
-  // remove duplicates
-  std::sort(data.begin(), data.end(), [](const T& l, const T& r) ->bool{return l.key < r.key;});
-  auto last = std::unique(data.begin(), data.end(), [](const T& l, const T& r) ->bool{return l.key == r.key;});
-  data.erase(last, data.end());
+
 
   if (print) {
     std::cout << "read " << data.size() << " values from " << filename << " in "

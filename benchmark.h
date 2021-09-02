@@ -93,7 +93,10 @@ namespace sosd {
 
                 // Load insert data
                 insert_keys_ = util::load_data<EqualityLookupStructure<KeyType>>(inserts_filename_);
-
+                // remove duplicates
+                std::sort(insert_keys_.begin(), insert_keys_.end(), [](const EqualityLookupStructure<KeyType>& l, const EqualityLookupStructure<KeyType>& r) ->bool{return l.key < r.key;});
+                auto last = std::unique(insert_keys_.begin(), insert_keys_.end(), [](const EqualityLookupStructure<KeyType>& l, const EqualityLookupStructure<KeyType>& r) ->bool{return l.key == r.key;});
+                insert_keys_.erase(last, insert_keys_.end());
             }
 
             if (cold_cache) {

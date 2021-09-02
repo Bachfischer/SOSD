@@ -32,6 +32,10 @@ template <class KeyType = uint64_t>
 struct EqualityLookupStructure {
   KeyType key;
   uint64_t result;
+  bool operator==( const EqualityLookupStructure& r) const
+  {
+      return key == r.key;
+  }
 };
 
 struct SearchBound {

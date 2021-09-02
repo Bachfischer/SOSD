@@ -95,17 +95,10 @@ namespace sosd {
                 insert_keys_ = util::load_data<EqualityLookupStructure<KeyType>>(inserts_filename_);
 
                 // remove duplicates
-                std::sort(insert_keys_.begin(), insert_keys_.end(), util::compareEqualityLookupStructure_less);
-                auto last = std::unique(insert_keys_.begin(), insert_keys_.end(), util::compareEqualityLookupStructure_equal);
+                std::sort(insert_keys_.begin(), insert_keys_.end(), [](const EqualityLookupStructure<KeyType>& l, const EqualityLookupStructure<KeyType>& r) ->bool{return l.key < r.key;});
+                auto last = std::unique(insert_keys_.begin(), insert_keys_.end(), [](const EqualityLookupStructure<KeyType>& l, const EqualityLookupStructure<KeyType>& r) ->bool{return l.key == r.key;});
                 insert_keys_.erase(last, insert_keys_.end());
 
-                // Optional: use position as payload
-                /*
-                uint64_t bulk_load_size = data_.size();
-                for (uint64_t pos = 0; pos < insert_keys_.size(); pos++) {
-                    index_insert_data_.push_back((KeyValue<KeyType>) {insert_keys_[pos], bulk_load_size + pos});
-                }
-                */
             }
 
             if (cold_cache) {

@@ -8,7 +8,7 @@
 #include "../util.h"
 
 template <class KeyType, int size_scale>
-class LIPP : public Competitor {
+class Lipp : public Competitor {
  public:
   uint64_t Build(const std::vector<KeyValue<KeyType>>& data) {
     std::vector<std::pair<KeyType, uint64_t>> loading_data;
@@ -28,11 +28,20 @@ class LIPP : public Competitor {
   }
 
   SearchBound EqualityLookup(const KeyType lookup_key) const {
-        //std::cout << "Looking up key: " << lookup_key << std::endl;
+        std::cout << "Looking up key: " << lookup_key << std::endl;
 
         auto payload = lipp_.at(lookup_key);
 
-        return (SearchBound){payload, payload};
+	// TODO: Switch to smaller value
+        size_t lo = 0;
+        if (payload >= 100) {
+            lo = payload-100;
+        }
+        auto hi = payload+100;
+        std::cout << "Lo has value: " << lo << std::endl;
+
+
+        return (SearchBound){lo, hi};
   }
 
     template <typename KT>

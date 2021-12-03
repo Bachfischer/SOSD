@@ -38,7 +38,17 @@ We provide a number of scripts to automate things. Each is located in the `scrip
   * `./scripts/download_rmis.sh` will download pre-built RMIs instead, which may be faster. You'll need to run `build_rmis.sh` if you want to measure build times on your platform.
 * `./scripts/prepare.sh` constructs query workloads and compiles the benchmark
 * `./scripts/execute.sh` executes the benchmark on each workload, storing the results in `results`. You can use the `-c` flag to output a .csv file of results rather than a .txt.
-* `./scripts/execute_inserts.sh` executes the key insertion benchmark on supported workloads (RMI, B-Tree and ALEX), storing the results in `results`.
+
+**Custom scripts to run different workloads based on [adversarial-ml-for-learned-indexes](https://github.com/Bachfischer/adversarial-ml-for-learned-indexes):**
+
+* `./scripts/execute_workload_read_only.sh` executes the non-poisoned read-only workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_workload_read_heavy.sh` executes the non-poisoned read-heavy workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_workload_write_heavy.sh` executes the non-poisoned write-heavy workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_workload_write_only.sh` executes the non-poisoned write-only workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_poisoned_workload_read_only.sh` executes the poisoned read-only workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_poisoned_workload_read_heavy.sh` executes the poisoned read-heavy workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_poisoned_workload_write_heavy.sh` executes the poisoned write-heavy workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
+* `./scripts/execute_poisoned_workload_write_only.sh` executes the poisoned write-only workload using dynamic indexes (ALEX, B-Tree and Dynamic-PGM), storing the results in `results`.
 
 Build times can be long, as we make aggressive use of templates to ensure we do not accidentally measure vtable lookup time. For development, this can be annoying: you can set `USE_FAST_MODE` in `config.h` to disable some features and get a faster build time.
 
